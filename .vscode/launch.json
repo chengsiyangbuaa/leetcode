@@ -1,0 +1,29 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(gdb) Launch",              //  强制：就一个名字而已，但是是必须要有的
+            "type": "cppdbg",                    //  强制：调试器的类型，Node debugger for  node, php for PHP , go for GO           
+            "request": "launch",                 //  强制：launch/attach
+            "program": "${fileDirname}\\bin\\${fileBasenameNoExtension}.exe", // 可执行文件的路径，需修改
+            "miDebuggerPath": "C:\\tools\\WinGW\\bin\\gdb.exe",    //  调试器的位置，
+            "preLaunchTask":"g++build",             //  调试前编译任务名称
+            "args": [],                          //  调试参数
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",         //  当前工作目录
+            "environment": [],                   //  当前项目环境变量
+            "externalConsole": true,
+            "MIMode": "gdb",                     //  调试器模式/类型
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}
