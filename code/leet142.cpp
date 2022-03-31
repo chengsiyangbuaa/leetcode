@@ -115,6 +115,14 @@ void test2(){
 
 void test3(){
     cout<<"test3"<<endl;
+    Solution *su = new Solution();
+    ListNode *s = nullptr;
+    ListNode* n11 = new ListNode(1);
+    ListNode* n12 = new ListNode(2);
+    n11->next = n12;
+    n12->next = n11;
+    su->printNode(su->detectCycle(n11));
+    su->printNode(su->detectCycle(n12));
 }
 
 int main(){
