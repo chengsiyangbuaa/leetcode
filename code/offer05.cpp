@@ -23,7 +23,25 @@ void testall(int i);
 //答题区*********************************
 class Solution {
 public:
-    
+    string replaceSpace(string s) {
+        int n = s.size();
+        int count = 0;
+        for(char c : s){
+            if(c == ' ')
+                count++;
+        }
+        s.resize(n+2*count);
+        for(int i = n -1; i >= 0 ; i--){
+            if(s[i] == ' '){
+                s[i + 2*count] = '0';
+                s[i + 2*count - 1] = '2';
+                s[i + 2*count - 2] = '%';
+                count--;
+            }else
+                s[i+2*count] = s[i];
+        }
+        return s;
+    }
 };
 //答题区*********************************
 int main(){
@@ -33,27 +51,32 @@ int main(){
 //测试
 void test1(){
     Solution* su = new Solution();
-    
+    string s = "We are happy.";
+    cout << su->replaceSpace(s);
 }
 
 void test2(){
     Solution* su = new Solution();
-    
+    string s = "     ";
+    cout << su->replaceSpace(s);
 }
 
 void test3(){
     Solution* su = new Solution();
-    
+    string s = "     .....";
+    cout << su->replaceSpace(s);
 }
 
 void test4(){
     Solution* su = new Solution();
-    
+    string s = ".....";
+    cout << su->replaceSpace(s);
 }
 
 void test5(){
     Solution* su = new Solution();
-    
+    string s = "";
+    cout << su->replaceSpace(s);
 }
 
 void test6(){

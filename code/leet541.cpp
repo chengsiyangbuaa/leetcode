@@ -23,7 +23,33 @@ void testall(int i);
 //答题区*********************************
 class Solution {
 public:
-    
+
+    void reverseString(string &s,int start, int end) {
+        if(start < 0 || end >= s.size())
+            return;
+        int left = start;
+        int right = end;
+        while(left < end && right >= start && left < right){
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+            left++;
+            right--;
+        }
+    }
+
+    string reverseStr(string s, int k) {
+        int n = s.size();
+        int current = 0;
+        while(current < n){
+            if(current + k < n)
+                reverseString(s,current,current+k-1);
+            else
+                reverseString(s,current,n-1);
+            current += 2*k;
+        }   
+        return s;
+    }
 };
 //答题区*********************************
 int main(){
@@ -33,32 +59,44 @@ int main(){
 //测试
 void test1(){
     Solution* su = new Solution();
-    
+    string s = "abcdefg";
+    int k = 2;
+    cout << su->reverseStr(s,k);
 }
 
 void test2(){
     Solution* su = new Solution();
-    
+    string s = "abcd";
+    int k = 2;
+    cout << su->reverseStr(s,k);
 }
 
 void test3(){
     Solution* su = new Solution();
-    
+    string s = "abcdefghi";
+    int k = 2;
+    cout << su->reverseStr(s,k);
 }
 
 void test4(){
     Solution* su = new Solution();
-    
+    string s = "abcdefg";
+    int k = 100;
+    cout << su->reverseStr(s,k);
 }
 
 void test5(){
     Solution* su = new Solution();
-    
+    string s = "abcdefghijklmnopq";
+    int k = 4;
+    cout << su->reverseStr(s,k);
 }
 
 void test6(){
     Solution* su = new Solution();
-    
+    string s = "a";
+    int k = 1;
+    cout << su->reverseStr(s,k);
 }
 
 void test(int i){

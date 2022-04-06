@@ -40,9 +40,20 @@ void test4(){
 }
 
 void test5(){
+    string s = "asdfgh";
+    cout << s.size() << endl;
+    s.resize(s.size() + 10);
+    cout << s.size() << endl;
+    cout << s << endl;   
+    s.resize(s.size() - 13);
+    cout << s.size() << endl;
+    cout << s << endl;  
 }
 
 void test6(){
+    string s = "12345678";
+    string s1(s.begin(), s.begin()+4);
+    cout << s1 << endl;
 }
 
 void test(int i){

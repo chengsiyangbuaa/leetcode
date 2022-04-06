@@ -10,6 +10,7 @@ using namespace std;
 void printIntIntUnordered_map(unordered_map<int,int> map);
 void printIntUnorderedSet(unordered_set<int> set);
 void printIntVector(vector<int> a);
+void printCharVector(vector<char> a);
 void printDoubleIntVector(vector<vector<int>> a);
 void test1();
 void test2();
@@ -23,7 +24,18 @@ void testall(int i);
 //答题区*********************************
 class Solution {
 public:
-    
+    void reverseString(vector<char>& s) {
+        int n = s.size()-1;
+        int left = 0;
+        int right = n;
+        while(left < n && right >= 0 && left < right){
+            char temp = s[left];
+            s[left] = s[right];
+            s[right] = temp;
+            left++;
+            right--;
+        }
+    }
 };
 //答题区*********************************
 int main(){
@@ -33,22 +45,30 @@ int main(){
 //测试
 void test1(){
     Solution* su = new Solution();
-    
+    vector<char> s({'h','e','l','l','o'});
+    su->reverseString(s);
+    printCharVector(s);
 }
 
 void test2(){
     Solution* su = new Solution();
-    
+    vector<char> s({'h','e','l','l','o','H'});
+    su->reverseString(s);
+    printCharVector(s);
 }
 
 void test3(){
     Solution* su = new Solution();
-    
+    vector<char> s({'H'});
+    su->reverseString(s);
+    printCharVector(s);
 }
 
 void test4(){
     Solution* su = new Solution();
-    
+    vector<char> s({'H','E'});
+    su->reverseString(s);
+    printCharVector(s);
 }
 
 void test5(){
@@ -138,5 +158,15 @@ void printDoubleIntVector(vector<vector<int>> a){
                 else
                     cout<<endl;
         }
+    }
+}
+
+void printCharVector(vector<char> a){
+    for(int i = 0 ; i < a.size() ; i++){
+        cout<<a[i];
+        if(i != a.size()-1)
+            cout<<",";
+        else
+            cout<<endl;
     }
 }

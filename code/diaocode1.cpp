@@ -3,7 +3,6 @@
 #include<string>
 #include<iostream>
 #include<vector>
-#include<algorithm>
 
 using namespace std;
 
@@ -23,7 +22,41 @@ void testall(int i);
 //答题区*********************************
 class Solution {
 public:
-    
+    void Islegallist(int numlist[], int M, int N)
+{
+    int left = numlist[0];
+    int right = numlist[0]; //左右浮标初始化为首个数字
+    int tag = 1;            //标记是否合法
+    for (int i = 0; i < N; i++)
+    {
+        if (numlist[i] > M + i) //排除栈满的情况
+        {
+            tag = 0;
+            break;
+        }
+        if (i != 0)
+        {
+            if (numlist[i] == left - 1)
+                left--;
+            else if (numlist[i] == right + 1)
+                right++;
+            else
+            {
+                tag = 0;
+                break;
+            }
+        }
+    }
+
+    if (tag == 1)
+    {
+        printf("YES");
+    }
+    else
+    {
+        printf("NO");
+    }
+}
 };
 //答题区*********************************
 int main(){
@@ -31,34 +64,52 @@ int main(){
     return 0;
 }
 //测试
-void test1(){
+void test1(){//F
     Solution* su = new Solution();
-    
+    int numlist[] = {6,5,4,3,2,1,7};
+    int M = 5;
+    int N = 7;
+    su->Islegallist(numlist,M,N);
 }
 
-void test2(){
+void test2(){//F
     Solution* su = new Solution();
-    
+    int numlist[] = {7,6,5,4,3,2,1};
+    int M = 5;
+    int N = 7;
+    su->Islegallist(numlist,M,N);
 }
 
-void test3(){
+void test3(){//T
     Solution* su = new Solution();
-    
+    int numlist[] = {3,2,1,7,6,5,4};
+    int M = 5;
+    int N = 7;
+    su->Islegallist(numlist,M,N);
 }
 
-void test4(){
+void test4(){//T
     Solution* su = new Solution();
-    
+    int numlist[] = {1,3,2,6,5,4,7};
+    int M = 5;
+    int N = 7;
+    su->Islegallist(numlist,M,N);
 }
 
-void test5(){
+void test5(){//T
     Solution* su = new Solution();
-    
+    int numlist[] = {2,1,3,4,5,7,6};
+    int M = 5;
+    int N = 7;
+    su->Islegallist(numlist,M,N);
 }
 
-void test6(){
+void test6(){//F
     Solution* su = new Solution();
-    
+    int numlist[] = {3,1,2,4,5,6,7};
+    int M = 5;
+    int N = 7;
+    su->Islegallist(numlist,M,N);
 }
 
 void test(int i){

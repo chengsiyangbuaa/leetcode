@@ -3,14 +3,12 @@
 #include<string>
 #include<iostream>
 #include<vector>
-#include<algorithm>
 
 using namespace std;
 
 void printIntIntUnordered_map(unordered_map<int,int> map);
 void printIntUnorderedSet(unordered_set<int> set);
 void printIntVector(vector<int> a);
-void printDoubleIntVector(vector<vector<int>> a);
 void test1();
 void test2();
 void test3();
@@ -19,31 +17,42 @@ void test5();
 void test6();
 void test(int i);
 void testall(int i);
-
 //答题区*********************************
 class Solution {
 public:
-    
+    bool canConstruct(string ransomNote, string magazine) {
+        vector<int> hash1(256,0);
+        vector<int> hash2(256,0);
+        for(int i = 0 ; i < ransomNote.size() ; i++)
+            hash1[ransomNote[i]]++;
+        for(int i = 0 ; i < magazine.size() ; i++)
+            hash2[magazine[i]]++;
+        for(int i = 0 ; i < 256 ; i++){
+            if(hash1[i] > hash2[i])
+                return false;
+        }
+        return true;
+    }
 };
 //答题区*********************************
 int main(){
     testall(6);
     return 0;
 }
-//测试
+//编写测试
 void test1(){
     Solution* su = new Solution();
-    
+    cout << su->canConstruct("a","b");
 }
 
 void test2(){
     Solution* su = new Solution();
-    
+    cout << su->canConstruct("aa","ab");    
 }
 
 void test3(){
     Solution* su = new Solution();
-    
+    cout << su->canConstruct("aa","aab");
 }
 
 void test4(){
@@ -127,16 +136,4 @@ void printIntIntUnordered_map(unordered_map<int,int> map){
         else
             cout<<endl;
     }    
-}
-
-void printDoubleIntVector(vector<vector<int>> a){
-    for(int j = 0 ; j < a.size() ; j++){
-        for(int i = 0 ; i < a[j].size() ; i++){
-                cout<<a[j][i];
-                if(i != a[j].size()-1)
-                    cout<<",";
-                else
-                    cout<<endl;
-        }
-    }
 }

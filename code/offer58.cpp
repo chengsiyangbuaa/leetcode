@@ -23,7 +23,22 @@ void testall(int i);
 //答题区*********************************
 class Solution {
 public:
-    
+
+    //将单词向左移动
+    void movewordleft(string &s, int start, int wordsize, int shitfsize){
+        for(int i = start; i < start +wordsize ; i++){
+            s[i - shitfsize] = s[i];
+        }
+    }
+
+    string reverseLeftWords(string s, int n) {
+        string heads(s.begin(), s.begin()+n);
+        movewordleft(s,n,s.size()-n,n);
+        for(int i = 0 ; i < n ; i++){
+            s[i+s.size()-n] = heads[i];
+        }
+        return s;
+    }
 };
 //答题区*********************************
 int main(){
@@ -33,12 +48,16 @@ int main(){
 //测试
 void test1(){
     Solution* su = new Solution();
-    
+    string s = "abcdefg";
+    int k = 2;
+    cout << su->reverseLeftWords(s,k);
 }
 
 void test2(){
     Solution* su = new Solution();
-    
+    string s = "lrloseumgh";
+    int k = 6;
+    cout << su->reverseLeftWords(s,k);
 }
 
 void test3(){

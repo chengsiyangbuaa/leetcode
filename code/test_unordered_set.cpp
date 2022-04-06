@@ -14,8 +14,7 @@ void printIntUnorderedSet(unordered_set<int> set){
             cout<<" ";
         else
             cout<<endl;    
-     }
-        
+     }    
 }
 
 void test1(){
@@ -26,10 +25,10 @@ void test1(){
 }
 
 void test2(){
-    unordered_set<string> tempuset{
-        "mingxuanshen"
-        "xiaoqiezi"
-    };
+    unordered_set<int> uset;
+    uset.insert(1);
+    uset.insert(1);
+    printIntUnorderedSet(uset);
 }
 
 void test3(){
@@ -41,7 +40,10 @@ void test3(){
 }
 
 void test4(){
-    
+    int a[] = {1,2,3,4,5,6,7,8,9,9,9,9,9};
+    vector<int> nums1(a,a+13);
+    unordered_set<int> uset(nums1.begin(),nums1.end());
+    printIntUnorderedSet(uset);
 }
 
 void test5(){

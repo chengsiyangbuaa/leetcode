@@ -11,10 +11,28 @@ void printIntVector(vector<int> a){
             cout<<endl;
     }
 }
-
+void printDoubleIntVector(vector<vector<int>> a){
+    for(int j = 0 ; j < a.size() ; j++){
+        for(int i = 0 ; i < a[j].size() ; i++){
+                cout<<a[j][i];
+                if(i != a[j].size()-1)
+                    cout<<",";
+                else
+                    cout<<endl;
+        }
+    }
+}
 void test1(){
-    vector<int> a(10);
-    printIntVector(a);
+    vector<vector<int>> a;
+    vector<int> a1(10,1);
+    vector<int> a2(10,2);
+    vector<int> a3(10,3);
+    vector<int> a4(10,4);
+    a.push_back(a1);
+    a.push_back(a2);
+    a.push_back(a3);
+    a.push_back(a4);
+    printDoubleIntVector(a);
 }
 
 void test2(){
