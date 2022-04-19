@@ -4,6 +4,8 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<stack>
+#include<queue>
 
 using namespace std;
 
@@ -23,40 +25,27 @@ void testall(int i);
 //答题区*********************************
 class Solution {
 public:
-    string replaceSpace(string s) {
-        int n = s.size();
-        int count = 0;
-        for(char c : s){
-            if(c == ' ')
-                count++;
-        }
-        s.resize(n+2*count);
-        // for(int i = n -1; i >= 0 ; i--){
-        //     if(s[i] == ' '){
-        //         s[i + 2*count] = '0';
-        //         s[i + 2*count - 1] = '2';
-        //         s[i + 2*count - 2] = '%';
-        //         count--;
-        //     }else
-        //         s[i+2*count] = s[i];
-        // }
-
-        //用双指针实现
-        int left = n-1;
-        int right = s.size()-1;
-        while(left < right){
-            if(s[left] != ' ')
-                s[right--] = s[left--];
-            else{
-                s[right-2] = '%';
-                s[right-1] = '2';
-                s[right] = '0';
-                right -= 3;
-                left--;
+    string removeDuplicates(string s) {
+        stack<char> sta1;
+        stack<char> sta2;
+        for(int i = 0 ; i < s.size() ; i++){
+            if(!sta1.empty() && sta1.top() == s[i]){
+                sta1.pop();
+                continue;
             }
-            
+            sta1.push(s[i]);
         }
-        return s;
+        while(!sta1.empty()){
+            sta2.push(sta1.top());
+            sta1.pop();
+        }
+        string result;
+        while(!sta2.empty()){
+            result += sta2.top();
+            sta2.pop();
+        }
+        return result;
+
     }
 };
 //答题区*********************************
@@ -67,32 +56,35 @@ int main(){
 //测试
 void test1(){
     Solution* su = new Solution();
-    string s = "We are happy.";
-    cout << su->replaceSpace(s);
+    string s = "acbbcd";
+    cout << su->removeDuplicates(s) << endl;
 }
 
 void test2(){
     Solution* su = new Solution();
-    string s = "     ";
-    cout << su->replaceSpace(s);
+    string s = "acbbca";
+    cout << su->removeDuplicates(s) << endl;
+
 }
 
 void test3(){
     Solution* su = new Solution();
-    string s = "     .....";
-    cout << su->replaceSpace(s);
+    string s = "aaaaaaa";
+    cout << su->removeDuplicates(s) << endl;    
 }
 
 void test4(){
     Solution* su = new Solution();
-    string s = ".....";
-    cout << su->replaceSpace(s);
+    string s = "aabbccdd";
+    cout << su->removeDuplicates(s) << endl;
+
 }
 
 void test5(){
     Solution* su = new Solution();
-    string s = "";
-    cout << su->replaceSpace(s);
+    string s = "abcdefg";
+    cout << su->removeDuplicates(s) << endl;
+ 
 }
 
 void test6(){

@@ -4,6 +4,8 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<stack>
+#include<queue>
 
 using namespace std;
 
@@ -23,40 +25,42 @@ void testall(int i);
 //答题区*********************************
 class Solution {
 public:
-    string replaceSpace(string s) {
-        int n = s.size();
-        int count = 0;
-        for(char c : s){
-            if(c == ' ')
-                count++;
+    int evalRPN(vector<string>& tokens) {
+        int result;
+        stack<int> sta;
+        for(int i = 0 ; i < tokens.size() ; i++){
+            int temp1;
+            int temp2;
+            if(tokens[i] == "/"){
+                temp1 = sta.top();
+                sta.pop();
+                temp2 = sta.top();
+                sta.pop();
+                sta.push(temp2/temp1);
+            }else if(tokens[i] == "*"){
+                temp1 = sta.top();
+                sta.pop();
+                temp2 = sta.top();
+                sta.pop();
+                sta.push(temp1*temp2);
+            }else if(tokens[i] == "+"){
+                temp1 = sta.top();
+                sta.pop();
+                temp2 = sta.top();
+                sta.pop();
+                sta.push(temp1 + temp2);
+            }else if(tokens[i] == "-"){
+                temp1 = sta.top();
+                sta.pop();
+                temp2 = sta.top();
+                sta.pop();
+                sta.push(temp2-temp1);
+            }else
+                sta.push(stoi(tokens[i]));
         }
-        s.resize(n+2*count);
-        // for(int i = n -1; i >= 0 ; i--){
-        //     if(s[i] == ' '){
-        //         s[i + 2*count] = '0';
-        //         s[i + 2*count - 1] = '2';
-        //         s[i + 2*count - 2] = '%';
-        //         count--;
-        //     }else
-        //         s[i+2*count] = s[i];
-        // }
+        
 
-        //用双指针实现
-        int left = n-1;
-        int right = s.size()-1;
-        while(left < right){
-            if(s[left] != ' ')
-                s[right--] = s[left--];
-            else{
-                s[right-2] = '%';
-                s[right-1] = '2';
-                s[right] = '0';
-                right -= 3;
-                left--;
-            }
-            
-        }
-        return s;
+        return sta.top();
     }
 };
 //答题区*********************************
@@ -67,32 +71,30 @@ int main(){
 //测试
 void test1(){
     Solution* su = new Solution();
-    string s = "We are happy.";
-    cout << su->replaceSpace(s);
+    vector<string> tokens{"2","1","+","3","*"};
+    cout << su->evalRPN(tokens);
 }
 
 void test2(){
     Solution* su = new Solution();
-    string s = "     ";
-    cout << su->replaceSpace(s);
+    vector<string> tokens{"4","13","5","/","+"};
+    cout << su->evalRPN(tokens);
 }
 
 void test3(){
     Solution* su = new Solution();
-    string s = "     .....";
-    cout << su->replaceSpace(s);
+    vector<string> tokens{"10","6","9","3","+","-11","*","/","*","17","+","5","+"};
+    cout << su->evalRPN(tokens);
 }
 
 void test4(){
     Solution* su = new Solution();
-    string s = ".....";
-    cout << su->replaceSpace(s);
+    
 }
 
 void test5(){
     Solution* su = new Solution();
-    string s = "";
-    cout << su->replaceSpace(s);
+    
 }
 
 void test6(){

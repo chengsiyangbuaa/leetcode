@@ -4,6 +4,8 @@
 #include<iostream>
 #include<vector>
 #include<algorithm>
+#include<stack>
+#include<queue>
 
 using namespace std;
 
@@ -21,44 +23,59 @@ void test(int i);
 void testall(int i);
 
 //答题区*********************************
-class Solution {
+class MyStack {
 public:
-    string replaceSpace(string s) {
-        int n = s.size();
-        int count = 0;
-        for(char c : s){
-            if(c == ' ')
-                count++;
-        }
-        s.resize(n+2*count);
-        // for(int i = n -1; i >= 0 ; i--){
-        //     if(s[i] == ' '){
-        //         s[i + 2*count] = '0';
-        //         s[i + 2*count - 1] = '2';
-        //         s[i + 2*count - 2] = '%';
-        //         count--;
-        //     }else
-        //         s[i+2*count] = s[i];
-        // }
+    
+    queue<int> q;
+    MyStack() {
 
-        //用双指针实现
-        int left = n-1;
-        int right = s.size()-1;
-        while(left < right){
-            if(s[left] != ' ')
-                s[right--] = s[left--];
-            else{
-                s[right-2] = '%';
-                s[right-1] = '2';
-                s[right] = '0';
-                right -= 3;
-                left--;
-            }
-            
+    }
+    
+    void push(int x) {
+        q.push(x);
+    }
+    
+    int pop() {
+        int n = q.size();
+        while(n > 1){
+            int temp = q.front();
+            q.pop();
+            q.push(temp);
+            n--;
         }
-        return s;
+        int result = q.front();
+        q.pop();
+        return result;
+    }
+    
+    int top() {
+        int n = q.size();
+        while(n > 1){
+            int temp = q.front();
+            q.pop();
+            q.push(temp);
+            n--;
+        }
+        int result = q.front();
+        int temp = q.front();
+        q.pop();
+        q.push(temp);
+        return result;
+    }
+    
+    bool empty() {
+        return q.empty();
     }
 };
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack* obj = new MyStack();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->top();
+ * bool param_4 = obj->empty();
+ */
 //答题区*********************************
 int main(){
     testall(6);
@@ -66,37 +83,48 @@ int main(){
 }
 //测试
 void test1(){
-    Solution* su = new Solution();
-    string s = "We are happy.";
-    cout << su->replaceSpace(s);
+    MyStack *myStack = new MyStack();
+    myStack->push(1);
+    myStack->push(2);
+    cout << myStack->top() << endl; 
+    cout << myStack->pop() << endl; 
+    cout << myStack->empty() << endl; 
 }
 
 void test2(){
-    Solution* su = new Solution();
-    string s = "     ";
-    cout << su->replaceSpace(s);
+    MyStack *myStack = new MyStack();
+    myStack->push(1);
+    myStack->push(2);
+    myStack->push(3);
+    myStack->push(4);
+    myStack->push(5);
+    myStack->push(6); 
+    cout << myStack->top() << endl; 
+    cout << myStack->pop() << endl; 
+    cout << myStack->pop() << endl; 
+    cout << myStack->pop() << endl; 
+    cout << myStack->pop() << endl; 
+    cout << myStack->pop() << endl; 
+    cout << myStack->empty() << endl;     
 }
 
 void test3(){
-    Solution* su = new Solution();
-    string s = "     .....";
-    cout << su->replaceSpace(s);
+    
+    
 }
 
 void test4(){
-    Solution* su = new Solution();
-    string s = ".....";
-    cout << su->replaceSpace(s);
+    
+    
 }
 
 void test5(){
-    Solution* su = new Solution();
-    string s = "";
-    cout << su->replaceSpace(s);
+    
+    
 }
 
 void test6(){
-    Solution* su = new Solution();
+    
     
 }
 
