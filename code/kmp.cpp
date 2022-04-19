@@ -23,40 +23,25 @@ void testall(int i);
 //答题区*********************************
 class Solution {
 public:
-    string replaceSpace(string s) {
+    vector<int> kmp(string s){
         int n = s.size();
-        int count = 0;
-        for(char c : s){
-            if(c == ' ')
-                count++;
-        }
-        s.resize(n+2*count);
-        // for(int i = n -1; i >= 0 ; i--){
-        //     if(s[i] == ' '){
-        //         s[i + 2*count] = '0';
-        //         s[i + 2*count - 1] = '2';
-        //         s[i + 2*count - 2] = '%';
-        //         count--;
-        //     }else
-        //         s[i+2*count] = s[i];
-        // }
-
-        //用双指针实现
-        int left = n-1;
-        int right = s.size()-1;
-        while(left < right){
-            if(s[left] != ' ')
-                s[right--] = s[left--];
-            else{
-                s[right-2] = '%';
-                s[right-1] = '2';
-                s[right] = '0';
-                right -= 3;
-                left--;
+        int x = 1;
+        int k = 0;   //k = next[x-1]
+        vector<int> result(s.size(),0);
+        while(x < n){
+            if(s[k]==s[x]){
+                k++;
+                result[x] = k;
+                x++;
             }
-            
+            else if(k != 0){
+                k = result[k-1];
+            }else{
+                result[x] = k;
+                x++;
+            }
         }
-        return s;
+        return result;
     }
 };
 //答题区*********************************
@@ -67,32 +52,29 @@ int main(){
 //测试
 void test1(){
     Solution* su = new Solution();
-    string s = "We are happy.";
-    cout << su->replaceSpace(s);
+    string s = "aabaaf";
+    printIntVector(su->kmp(s));
 }
 
 void test2(){
     Solution* su = new Solution();
-    string s = "     ";
-    cout << su->replaceSpace(s);
+    string s = "abcdefffabcde";
+    printIntVector(su->kmp(s));
 }
 
 void test3(){
     Solution* su = new Solution();
-    string s = "     .....";
-    cout << su->replaceSpace(s);
+    
 }
 
 void test4(){
     Solution* su = new Solution();
-    string s = ".....";
-    cout << su->replaceSpace(s);
+    
 }
 
 void test5(){
     Solution* su = new Solution();
-    string s = "";
-    cout << su->replaceSpace(s);
+    
 }
 
 void test6(){

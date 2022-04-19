@@ -112,13 +112,50 @@ public:
         }
     }
 
+    //使用双指针做题
+    //双指针消除多余空格
+    void removespaces(string &s){
+        int slow = 0;
+        int fast = 0;
+        int n = s.size();
+        while(s[fast] == ' ')
+            fast++;
+        while(fast < n){
+            if(s[fast] != ' '){
+                s[slow] = s[fast];
+                slow++;
+                fast++;
+            }else{//遇到空格
+                while(fast < n){//去掉句中空格
+                    if(fast == n-1){//以空格结尾
+                        s.resize(slow);
+                        return;
+                    }
+                    if(s[fast+1] == ' ')
+                        fast++;
+                    else{//单个空格赋值
+                        s[slow] = s[fast];
+                        slow++;
+                        fast++;
+                        break;
+                    }
+                }
+            }
+        }
+        s.resize(slow);
+    }
+
     string reverseWords(string s) {
-        //消除尾部空格
-        deleteTailSpaces(s);
-        //消除首部空格
-        deleteHeadSpace(s);
-        //消除多余空格
-        deleteOtherSpace(s);
+        // //消除尾部空格
+        // deleteTailSpaces(s);
+        // //消除首部空格
+        // deleteHeadSpace(s);
+        // //消除多余空格
+        // deleteOtherSpace(s);
+
+        //使用双指针消除空格
+        removespaces(s);
+
         //反转整个字符串
         int n = s.size();
         reverseString(s,0,n-1);
@@ -134,7 +171,7 @@ public:
         }
         return s;
     }
-};
+    };
 //答题区*********************************
 int main(){
     testall(6);
@@ -143,9 +180,10 @@ int main(){
 //测试
 void test1(){
     Solution* su = new Solution();
-    string s = "the      sky     is        blue";
-    s = su->reverseWords(s);
+    string s = "   the      sky     is        blue   ";
+    su->removespaces(s);
     cout << s << endl;
+    cout << s.size() << endl;
 }
 
 void test2(){
