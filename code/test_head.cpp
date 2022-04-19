@@ -17,6 +17,8 @@ void test3();
 void test4();
 void test5();
 void test6();
+void test7();
+void test8();
 void test(int i);
 void testall(int i);
 
@@ -27,7 +29,7 @@ public:
 };
 //答题区*********************************
 int main(){
-    testall(6);
+    testall(8);
     return 0;
 }
 //测试
@@ -61,6 +63,16 @@ void test6(){
     
 }
 
+void test7(){
+    Solution* su = new Solution();
+    
+}
+
+void test8(){
+    Solution* su = new Solution();
+    
+}
+
 void test(int i){
     cout << "test: "<< i<<" start!"<<endl;
     switch (i)
@@ -83,14 +95,19 @@ void test(int i){
     case 6:
         test6();
         break;
+    case 7:
+        test7();
+        break;
+    case 8:
+        test8();
+        break;
     default:
         break;
     }
     cout <<endl<< "test: "<<i<<" end!"<<endl<<endl;
 }
 
-void testall(int i){
-    int k = 6;
+void testall(int k){
     for(int i = 1 ; i <= k ; i++ )
         test(i);
 }
