@@ -17,88 +17,91 @@ void test3();
 void test4();
 void test5();
 void test6();
+void test7();
+void test8();
 void test(int i);
 void testall(int i);
 
 //答题区*********************************
 class Solution {
 public:
-    vector<int> kmp(string s){
-        int n = s.size();
-        int x = 1;
-        int k = 0;   //k = next[x-1]
-        vector<int> result(s.size(),0);
-        while(x < n){
-            if(s[k]==s[x]){
-                k++;
-                result[x] = k;
-                x++;
-            }
-            else if(k != 0){
-                k = result[k-1];
-            }else{
-                result[x] = k;
-                x++;
-            }
-        }
-        return result;
-    }
-
     bool repeatedSubstringPattern(string s) {
         int n = s.size();
+        int endp = 1;
         int subsize = 0;
-        int endnext = kmp(s)[n-1];
-        if(endnext == 0)
-            return false;
-        subsize = n - endnext;
-        if(endnext%subsize == 0)
-            return true;
-        else
-            return false;
-        
+        int leftsize = 0;
+        while(endp < n){
+            if(s[endp] != s[0]){
+                endp++;
+                continue;
+            }
+            leftsize = n - endp;
+            if(leftsize%endp != 0){
+                endp++;
+                continue;
+            }
+            for(int i = 0 ; i < leftsize ; i++){
+                if(s[i%endp] != s[endp+i])
+                    break;
+                if(i == leftsize - 1)
+                    return true;
+            }
+            endp++;
+        }
+        return false;
     }
 
+    //这题还能用KMP?
+    
 };
 //答题区*********************************
 int main(){
-    testall(6);
+    testall(8);
     return 0;
 }
 //测试
 void test1(){
     Solution* su = new Solution();
-    string s = "abac";
-    string str = su->repeatedSubstringPattern(s) ? "true" : "false";
-    cout<<str<<endl;
+    string s = "abab";
+    cout << su->repeatedSubstringPattern(s);
 }
 
 void test2(){
     Solution* su = new Solution();
-    string s = "ababababab";
-    string str = su->repeatedSubstringPattern(s) ? "true" : "false";
-    cout<<str<<endl;
+    string s = "aba";
+    cout << su->repeatedSubstringPattern(s);
 }
 
 void test3(){
     Solution* su = new Solution();
-    string s = "abcabcabc";
-    string str = su->repeatedSubstringPattern(s) ? "true" : "false";
-    cout<<str<<endl;
+    string s = "abcabcabcabc";
+    cout << su->repeatedSubstringPattern(s);
 }
 
 void test4(){
     Solution* su = new Solution();
-    string s = "abcabdabcabd";
-    string str = su->repeatedSubstringPattern(s) ? "true" : "false";
-    cout<<str<<endl;
+    string s = "ababcababc";
+    cout << su->repeatedSubstringPattern(s);
 }
 
 void test5(){
     Solution* su = new Solution();
-    
+    string s = "aabaaba";
+    cout << su->repeatedSubstringPattern(s);
 }
 
 void test6(){
+    Solution* su = new Solution();
+    string s = "abaababaab";
+    cout << su->repeatedSubstringPattern(s);
+}
+
+void test7(){
+    Solution* su = new Solution();
+    
+}
+
+void test8(){
     Solution* su = new Solution();
     
 }
@@ -125,14 +128,19 @@ void test(int i){
     case 6:
         test6();
         break;
+    case 7:
+        test7();
+        break;
+    case 8:
+        test8();
+        break;
     default:
         break;
     }
     cout <<endl<< "test: "<<i<<" end!"<<endl<<endl;
 }
 
-void testall(int i){
-    int k = 6;
+void testall(int k){
     for(int i = 1 ; i <= k ; i++ )
         test(i);
 }
