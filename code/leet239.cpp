@@ -8,7 +8,6 @@
 #include<queue>
 #include<deque>
 
-
 using namespace std;
 
 void printIntIntUnordered_map(unordered_map<int,int> map);
@@ -26,25 +25,69 @@ void test8();
 void test(int i);
 void testall(int i);
 
+//此时我们需要一个队列，这个队列呢，放进去窗口里的元素，然后随着窗口的移动，队列也一进一出，每次移动之后，队列告诉我们里面的最大值是什么。
+//每次窗口移动的时候，调用que.pop(滑动窗口中移除元素的数值)，que.push(滑动窗口添加元素的数值)，然后que.front()就返回我们要的最大值。
+//找最大：有序队列，最大值放在队首
+//单调序列不是优先级序列，单调队列不是排序
+
 //答题区*********************************
+class MyQueue{
+public:
+    deque<int> que;
+    void pop(){
+        que.pop_front();
+    }
+
+    void push(int x){
+        while(!que.empty() && que.back() < x)
+            que.pop_back();
+        que.push_back(x);
+    }
+
+    int front(){
+        return que.front();
+    }
+
+    bool empty(){
+        return que.empty();
+    }
+};
+
 class Solution {
 public:
-    
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        MyQueue que;
+        vector<int> result;
+        for(int i = 0 ; i < k ; i++)
+            que.push(nums[i]);
+        result.push_back(que.front());
+        for(int i = k ; i < nums.size() ; i++){
+            if(!que.empty() && nums[i-k] == que.front())
+                que.pop();
+            que.push(nums[i]);
+            result.push_back(que.front());
+        }
+        return result;
+    }
 };
 //答题区*********************************
 int main(){
     testall(8);
-    return 0;
+        return 0;
 }
 //测试
 void test1(){
     Solution* su = new Solution();
-    
+    vector<int> nums{1,3,-1,-3,5,3,6,7};
+    int k = 3;
+    printIntVector(su->maxSlidingWindow(nums,k));
 }
 
 void test2(){
     Solution* su = new Solution();
-    
+    vector<int> nums{9,10,9,-7,-4,-8,2,-6};
+    int k = 5;
+    printIntVector(su->maxSlidingWindow(nums,k));
 }
 
 void test3(){
